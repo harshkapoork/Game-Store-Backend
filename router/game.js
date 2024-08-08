@@ -12,11 +12,17 @@ app.use(express.json())
 router.get("/", async(req, res) => {
 
     try {
-        const Allgames =  await Games.find()
-        res.json(Allgames)
+        const GamesData =  await Games.find()
+        res.json({ status: true ,GamesData } )
         
     } catch (error) {
-        res.json("No game Found")
+        res.json({
+            status: false,
+            message:"server not responding",
+            error: error.message,
+            
+            
+        })
         
     }
   
@@ -31,12 +37,18 @@ router.post("/one",  async(req, res) => {
  
   
     try {
-        const game = await Games.findById(data)
-      
-        res.json(game)
+        const GamesData = await Games.findById(data)
+       
+        res.json({ status: true ,GamesData } )
         
     } catch (error) {
-        res.json({message:"not"})
+        res.json({
+            status: false,
+            message:"server not responding",
+            error: error.message,
+            
+            
+        })
         
     }
     
@@ -44,6 +56,90 @@ router.post("/one",  async(req, res) => {
 
 //end
 
+// filters start
+// get game by language
+router.post("/language", async (req, res) => {
+    try{
+    const value = req.query.language
+    const filter = { language:{ $regex:value, $options: 'i' } }
+    const GamesData = await Games.find(filter)
+    res.json({ status: true ,GamesData } )
+        
+} catch (error) {
+    res.json({
+        status: false,
+        message:"server not responding",
+        error: error.message,
+        
+        
+    })
+    
+}
+})
+
+// end
+// get game by Title
+router.post("/title", async (req, res) => {
+    try{
+      const value = req.body.title || null;
+    const i = req.body.i || 0;
+    const filter = { title:{ $regex:`^${value}`, $options: 'i' } }
+    const GamesData = await Games.find(filter).limit(i)
+    res.json({ status: true ,GamesData } )
+        
+} catch (error) {
+    res.json({
+        status: false,
+        message:"server not responding",
+        error: error.message,
+        
+        
+    })
+    
+}
+})
+
+// end
+router.post("/test", async(req, res) => {
+    
+    const value = req.body.cartData || ["66afc18552c6a3dbcea69a00"];
+    console.log(req.body)
+    const i = req.body.i || 0;
+    // const filter = { _id: {$in: ["66, "66afc18552c6a3dbcea69a00"]} }
+    const game = await Games.find({_id:value}).limit(i)
+    res.json(game)
+})
+
+
+
+
+
+// get game by catagory
+router.post("/catagory", async (req, res) => {
+    try{
+    const value = req.body.title || "";
+    const i = req.body.i || 0;
+    const filter = { catagory:{ $regex:`^${value}`, $options: 'i' } }
+    const GamesData = await Games.find(filter).limit(i)
+    res.json({ status: true ,GamesData } )
+        
+} catch (error) {
+    res.json({
+        status: false,
+        message:"server not responding",
+        error: error.message,
+        
+        
+    })
+    
+}
+
+})
+
+
+// end
+
+// filters end
 
 
 //add new games
@@ -52,11 +148,19 @@ router.post("/", async (req, res) => {
     const gameData = {
         title: data.title,
         des: data.des,
-      
+        dp: data.dp,
+        img1: data.img1,
+        img2: data.img2,
+        img3:data.img3,
+        img4: data.img4,
+        img5: data.img5,
+        video1: data.video1,
+        video2:data.video2,
         price: data.price,
         catagory: data.catagory,
-        Franchise: data.Franchise,
-        language:data.language,
+        developer: data.developer,
+        language: data.language,
+        releaseDate:data.releaseDate
         
     }
     const newGame = new Games(gameData)

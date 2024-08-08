@@ -20,15 +20,16 @@ const userSchema = new mongoose.Schema(
             type: String,
             require:false,
         },
-        library: {
-            default: [],
+        library: {type:Object,
+            
             require:false
         },
-        cart: {
+        cart: {type:Object,
             default: [],
             require:false
         },
         totalSpend: {
+            type:Number,
             default: 0,
             
         }

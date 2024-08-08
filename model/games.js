@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const gameSchmea = new mongoose.Schema({
+
     title: {
         type: String,
         required: true,
@@ -11,7 +12,49 @@ const gameSchmea = new mongoose.Schema({
         default:"no description"
     
     },
+    dp: {
+        type: String,
     
+        
+    },
+    img1: {
+        type: String,
+    
+        
+    },
+    img2: {
+        type: String,
+    
+        
+    },
+    img3: {
+        type: String,
+    
+        
+    },
+    img4: {
+        type: String,
+    
+        
+    },
+    img5: {
+        type: String,
+    
+        
+    },
+    video1: {
+        type: String,
+    
+        
+    },
+    video2: {
+        type: String,
+    
+        
+    },
+    releasedate: {
+        type:String
+    },
 
     // imageURL: {
     //     type: Object,
@@ -23,7 +66,7 @@ const gameSchmea = new mongoose.Schema({
     //     required: true,
     //     default:[""] 
     // },
-    Franchise: {
+    developer: {
         type:String,
         require:false
     },
@@ -33,7 +76,7 @@ const gameSchmea = new mongoose.Schema({
         require:true
     },
     catagory: {
-        type:String,
+        type:Object,
         require:true
     },
     Pc_Requirement: {

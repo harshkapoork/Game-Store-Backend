@@ -18,12 +18,17 @@ mongoose.connect(process.env.DB_STRING, )
     console.log("Db connection Started")
 })
     .catch((error) => {
-        console.error({message:error.message});
+        console.error("No internet ::"+error.message);
     })
 
 // routes
 const game = require("./router/game")
-app.use("/game",game)
+app.use("/game", game)
+//
+
+// router user
+const user = require('./router/user')
+app.use("/user",user)
 
 
 
@@ -33,7 +38,7 @@ app.listen(port, () => {
 })
     
 app.get("/", (req,res) => {
-    res.json("home")
+    res.json("Game home")
 })
 
 

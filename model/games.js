@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const gameSchmea = new mongoose.Schema({
-
     title: {
         type: String,
         required: true,
